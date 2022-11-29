@@ -8,7 +8,7 @@ const ContextProvider = ({children}) => {
   const[allPics, setAllPics] = useState([]);
   const[cartItems, setCartItems] = useState([]);
 
-  const API_KEY = "30171212-c38e3e8a5677cb3bb416cce30";
+  const API_KEY = process.env.REACT_APP_API_KEY;
   const BASE_URL = `https://pixabay.com/api/?key=${API_KEY}&per_page=5&colors=blue`;
 
   useEffect(() => {
