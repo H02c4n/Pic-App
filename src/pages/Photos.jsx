@@ -1,21 +1,19 @@
 import React from 'react'
-import { useAppContext } from '../context/ContextProvider'
 import Image from '../components/Image';
 import { getClass } from '../utils/getClass';
+import {usePictureContext} from "../context/PicProvider";
 const Photos = () => {
 
 
+  const {allPics} = usePictureContext();
 
-  const {allPics} = useAppContext();
-  
+  const picElement = allPics?.map(pic =>(
+    <Image key={pic.id} pic={pic} className={getClass(pic?.id)} />
+  ))
 
   return (
     <main className='photos'>
-      {allPics?.map((pic, i) =>{
-        return(
-          <Image key={i} pic={pic} className={getClass(i)} />
-        )
-      })}
+     {picElement}
     </main>
   )
 }

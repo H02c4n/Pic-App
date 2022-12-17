@@ -1,34 +1,45 @@
 
-import PropTypes from "prop-types"
+import { useState } from "react";
 import {AiFillHeart, AiOutlineHeart} from "react-icons/ai"
 import {IoBagAddOutline,IoBagAddSharp} from "react-icons/io5"
-import { useAppContext } from '../context/ContextProvider';
+import { usePictureContext } from "../context/PicProvider";
 
 const Image = ({className, pic}) => {
-  const{isFavorite, id, largeImageURL} = pic;
-    const {toggleFavorite, addToCart, cartItems, removeFromCart} = useAppContext();
-    //console.log(pic.id);
+
+  const {addToCart, cartItems} = usePictureContext();
+  const [hovered, setHovered] = useState(false);
+  const [favorite, setFavorite] = useState(false);
+
+  console.log(cartItems);
+  
   return (
     <div className={`${className} image-container`}
+    onMouseEnter={()=> setHovered(true)}
+    onMouseLeave={()=> setHovered(false)}
     >
-        <img src={largeImageURL} className="image-grid" alt={id} />
-        {isFavorite && <AiFillHeart className='favorite' onClick={()=> toggleFavorite(id)}/>}
-        {!isFavorite && <AiOutlineHeart className='favorite' onClick={()=> toggleFavorite(id)}/>}
+      <img src={pic.largeImageURL} alt="" className="image-grid" />
 
-        {cartItems.includes(id) && <IoBagAddSharp className="cart" onClick={() => removeFromCart(id)}/>}
-        {!cartItems.includes(id) && <IoBagAddOutline className="cart" onClick={()=>addToCart(pic.id)}/>}
-        
+      {hovered && 
+      <div>
+        {favorite && 
+        <AiFillHeart className="favorite" onClick={() => setFavorite(false)}/>
+        }
+        {!favorite && 
+        <AiOutlineHeart className="favorite" onClick={() => setFavorite(true)}/>
+        }
+
+        {cartItems.some(item => item.id === pic.id) &&
+        <IoBagAddSharp className="cart" />
+        }
+        {!cartItems.some(item => item.id === pic.id) &&
+        <IoBagAddOutline className="cart" onClick={()=> addToCart(pic)}/>
+        }
+      
+      </div> }
+      
+      
     </div>
   )
-}
-
-Image.prototype ={
-  className: PropTypes.string,
-  img: PropTypes.shape({
-    id:PropTypes.string.isRequired,
-    url:PropTypes.string.isRequired,
-    isFavorite:PropTypes.bool
-  })
 }
 
 export default Image

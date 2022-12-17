@@ -105,12 +105,23 @@ img.image-grid {
   cursor: pointer;
 }
 
+.cart-item-icon {
+  color: var(--blue);
+  font-size: 2rem;
+  position: absolute;
+  top: 20px;
+  right: 15px;
+  cursor: pointer;
+}
+
 .wide {
   grid-column: span 2;
+  grid-row: span 2;
 }
 
 .tall {
   grid-row: span 2;
+  grid-column: span 2;
 }
 
 .big {

@@ -1,11 +1,11 @@
-import ContextProvider from "./context/ContextProvider";
+import PicProvider from "./context/PicProvider";
 import AppRouter from "./router/AppRouter";
 
 function App() {
   return (
-    <ContextProvider>
+    <PicProvider>
       <AppRouter />
-    </ContextProvider>
+    </PicProvider>
   );
 }
 
